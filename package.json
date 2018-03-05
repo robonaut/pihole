@@ -1,0 +1,28 @@
+{
+  "name": "pihole-client",
+  "version": "0.0.1",
+  "description": "Pihole",
+  "author": "robonaut <ilja@robonaut.be>",
+  "main": "index.js",
+  "scripts": {
+    "start": "node-dev server | bunyan",
+    "init": "make init_mysql",
+    "test": "DISABLE_LOG=1 mocha test/index.js --exit --timeout 5000 $MOCHA_OPTIONS",
+    "test-live": "DISABLE_LOG=1 IQO2_SQL_HOST=iq02-master-aurora-cluster.cluster-cw1srjgtiiay.eu-west-1.rds.amazonaws.com mocha test/live.js --exit --timeout 10000 $MOCHA_OPTIONS",
+    "lint": "eslint lib/** test/**"
+  },
+  "dependencies": {
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-compress": "^2.0.0",
+    "koa-response-time": "^2.0.0",
+    "koa-router": "^7.4.0",
+    "snowboy": "^1.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.1",
+    "node-dev": "^3.1.3",
+    "supertest": "^3.0.0"
+  }
+}
