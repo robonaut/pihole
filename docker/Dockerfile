@@ -1,5 +1,5 @@
-#FROM arm32v7/debian:stretch-slim
-FROM debian:stretch-slim
+FROM arm32v7/debian:stretch-slim
+#FROM debian:stretch-slim
 
 WORKDIR /app
 
@@ -40,7 +40,7 @@ RUN systemctl mask \
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	python-pyaudio \
 	python3-pyaudio \
-	sox && \
+	sox \
 	alsa-utils && \
 	curl -O https://bootstrap.pypa.io/get-pip.py && \
 	python get-pip.py && \
@@ -50,6 +50,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	apt-get clean && \
 	apt-get autoclean && \
 	rm get-pip.py
+
+RUN curl https://apt.matrix.one/doc/apt-key.gpg | apt-key add - && \
+	echo "deb https://apt.matrix.one/raspbian $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/matrixlabs.list && \
+	apt-get update && \
+	apt-get upgrade && \
+	apt-get install matrixio-malos libmatrixio-creator-hal-dev
 
 RUN echo 'Install node.js 8' && \
 	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \

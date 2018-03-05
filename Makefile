@@ -19,8 +19,8 @@ restart:
 	--name=client \
 	--restart unless-stopped \
 	-e NODE_ENV=production \
-	-e IQO2_SQL_HOST=iq02-master-aurora-cluster.cluster-cw1srjgtiiay.eu-west-1.rds.amazonaws.com \
 	-p 3000:3000 \
+	-v /dev/snd:/dev/snd --privileged \
 	-d pihole/client'
 
 run:
