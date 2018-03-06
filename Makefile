@@ -40,3 +40,6 @@ getrecord:
 record:
 	ssh pi@hole.local 'docker exec client arecord -d 10 --device=mic_channel0 -r 16000 -c 1  -f S16_LE test.wav'
 	make getrecord
+
+tunnel-leds:
+	ssh -L 20021:localhost:20021 pi@hole.local

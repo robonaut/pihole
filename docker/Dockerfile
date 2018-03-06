@@ -17,6 +17,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	iproute \
 	netbase \
 	curl \
+	make \
+	g++ \
 	udev \
 	vim \
 	&& rm -rf /var/lib/apt/lists/*
@@ -41,6 +43,9 @@ RUN systemctl mask \
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	alsa-utils \
+	libatlas-base-dev \
+	libmagic-dev \
+	libzmq3-dev \
 	python-pyaudio \
 	python3-pyaudio \
 	sox && \

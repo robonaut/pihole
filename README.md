@@ -33,8 +33,8 @@ $ sudo reboot
 $ make provision
 ```
 
-### Test in container
+### Make record
 ```sh
-$ arecord -d 10 --device=mic_channel0 -r 16000 -c 1  -f S16_LE test.wav
+$ make record
 ```
 
