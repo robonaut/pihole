@@ -21,6 +21,7 @@ restart:
 	-e NODE_ENV=production \
 	-p 3000:3000 \
 	-v /dev/snd:/dev/snd --privileged \
+	-v /tmp:/tmp --privileged \
 	-d pihole/client'
 
 run:
@@ -31,3 +32,11 @@ provision:
 	make deploy
 	make restart
 	make login
+
+getrecord:
+	ssh pi@hole.local 'docker cp client:/app/test.wav .'
+	scp pi@hole.local:~/test.wav .
+
+record:
+	ssh pi@hole.local 'docker exec client arecord -d 10 --device=mic_channel0 -r 16000 -c 1  -f S16_LE test.wav'
+	make getrecord

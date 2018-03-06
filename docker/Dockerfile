@@ -1,6 +1,8 @@
 FROM arm32v7/debian:stretch-slim
 #FROM debian:stretch-slim
 
+COPY asound.conf /etc/asound.conf
+
 WORKDIR /app
 
 COPY package.json package.json
@@ -38,24 +40,17 @@ RUN systemctl mask \
 	kmod-static-nodes.service
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+	alsa-utils \
 	python-pyaudio \
 	python3-pyaudio \
-	sox \
-	alsa-utils && \
+	sox && \
 	curl -O https://bootstrap.pypa.io/get-pip.py && \
 	python get-pip.py && \
 	pip install pyaudio && \
-	apt-get update && apt-get install -y --no-install-recommends libatlas-base-dev  && \
 	apt-get autoremove && \
 	apt-get clean && \
 	apt-get autoclean && \
 	rm get-pip.py
-
-RUN curl https://apt.matrix.one/doc/apt-key.gpg | apt-key add - && \
-	echo "deb https://apt.matrix.one/raspbian $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/matrixlabs.list && \
-	apt-get update && \
-	apt-get upgrade && \
-	apt-get install matrixio-malos libmatrixio-creator-hal-dev
 
 RUN echo 'Install node.js 8' && \
 	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \
