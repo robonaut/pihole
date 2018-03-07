@@ -1,7 +1,7 @@
 FROM arm32v7/debian:stretch-slim
 #FROM debian:stretch-slim
 
-COPY asound.conf /etc/asound.conf
+COPY docker/asound.conf /etc/asound.conf
 
 WORKDIR /app
 

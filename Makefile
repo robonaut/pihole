@@ -17,7 +17,7 @@ restart:
 	- ssh pi@hole.local 'docker rm client'
 	ssh pi@hole.local 'docker run \
 	--name=client \
-	--restart unless-stopped \
+	--restart always \
 	-e NODE_ENV=production \
 	-p 3000:3000 \
 	-v /dev/snd:/dev/snd --privileged \
@@ -38,7 +38,11 @@ getrecord:
 	scp pi@hole.local:~/test.wav .
 
 record:
-	ssh pi@hole.local 'docker exec client arecord -d 10 --device=mic_channel0 -r 16000 -c 1  -f S16_LE test.wav'
+	ssh pi@hole.local 'docker exec client arecord -d 10 --device=mic_channel8 -r 16000 -c 1  -f S16_LE test.wav'
+	make getrecord
+
+recordsox:
+	ssh pi@hole.local 'docker exec client sox -r 16000 -c 1 -e signed -c 1 -e signed -b 16 mic_16000_s16le_channel_8.raw test.wav'
 	make getrecord
 
 tunnel-leds:

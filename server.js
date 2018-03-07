@@ -25,3 +25,14 @@ app.use(require('koa-bodyparser')({
 app.listen(config.apiPortInternal);
 
 console.log('Server listening on port', config.apiPortInternal);
+
+// move this to separate class
+const Leds = require('./lib/leds');
+const leds = new Leds({ matrixIp: '172.17.0.1' });
+leds.connect();
+leds.pulseRepeatColor({
+	color: { red: 0, green: 20, blue: 10, white: 0 },
+	pulseDuration: 200,
+	intervalDuration: 100,
+	repetions: 3,
+});
