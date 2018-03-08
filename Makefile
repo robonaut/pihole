@@ -17,7 +17,7 @@ restart:
 	- ssh pi@hole.local 'docker rm client'
 	ssh pi@hole.local 'docker run \
 	--name=client \
-	--restart always \
+	--restart unless-stopped \
 	-e NODE_ENV=production \
 	-p 3000:3000 \
 	-v /dev/snd:/dev/snd --privileged \

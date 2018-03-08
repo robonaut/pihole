@@ -1,11 +1,7 @@
 FROM arm32v7/debian:stretch-slim
 #FROM debian:stretch-slim
 
-COPY docker/asound.conf /etc/asound.conf
-
 WORKDIR /app
-
-COPY package.json package.json
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	sudo \
@@ -57,15 +53,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	apt-get autoclean && \
 	rm get-pip.py
 
+
 RUN echo 'Install node.js 8' && \
 	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \
 	apt-get install -y nodejs
 
+COPY package.json package.json
 RUN npm install --production
 
 COPY docker/entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
+COPY docker/asound.conf /etc/asound.conf
 COPY lib/ lib/
 COPY *.js ./
 
