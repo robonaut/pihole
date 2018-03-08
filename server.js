@@ -31,7 +31,7 @@ const Leds = require('./lib/leds');
 const leds = new Leds({ matrixIp: '172.17.0.1' });
 leds.connect();
 leds.pulseRepeatColor({
-	color: { red: 0, green: 20, blue: 10, white: 0 },
+	color: { red: 20, green: 0, blue: 0, white: 0 },
 	pulseDuration: 200,
 	intervalDuration: 100,
 	repetions: 3,

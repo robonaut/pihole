@@ -1,37 +1,46 @@
-PROJECT=pihole
+PROJECT=pihole/client
 NAME ?= $(shell node -e "console.log(require('./package.json').name);")
 VERSION ?= $(shell node -e "console.log(require('./package.json').version);")
 BUILDNR ?=1
+REPO ?= 112550259757.dkr.ecr.eu-west-1.amazonaws.com
 
 login:
 	ssh pi@hole.local
 
 build:
-	docker build -f ./docker/Dockerfile -t pihole/client .
+	docker build -f ./docker/Dockerfile -t $(PROJECT) .
+
+aws-login:
+	$$(aws ecr get-login --no-include-email)
+
+aws-push:
+	docker tag $(PROJECT):latest $(REPO)/$(PROJECT):latest
+	docker push $(REPO)/$(PROJECT):latest
+
+aws-deploy:
+	ssh pi@hole.local '$(shell aws ecr get-login --no-include-email)'
+	ssh pi@hole.local 'docker pull $(REPO)/$(PROJECT):latest'
 
 deploy:
-	docker save pihole/client | bzip2 | ssh pi@hole.local 'bunzip2 | docker load'
+	docker save $(PROJECT) | bzip2 | ssh pi@hole.local 'bunzip2 | docker load'
 
 restart:
 	- ssh pi@hole.local 'docker stop client'
 	- ssh pi@hole.local 'docker rm client'
-	ssh pi@hole.local 'docker run \
+	- ssh pi@hole.local 'docker run \
 	--name=client \
 	--restart unless-stopped \
 	-e NODE_ENV=production \
 	-p 3000:3000 \
 	-v /dev/snd:/dev/snd --privileged \
 	-v /tmp:/tmp --privileged \
-	-d pihole/client'
-
-run:
-	docker run --name=pihole -p 3000:3000 -d pihole/client
+	-d $(REPO)/$(PROJECT):latest'
 
 provision:
 	make build
-	make deploy
+	make aws-push
+	make aws-deploy
 	make restart
-	make login
 
 getrecord:
 	ssh pi@hole.local 'docker cp client:/app/test.wav .'
