@@ -5,13 +5,14 @@
   "author": "robonaut <ilja@robonaut.be>",
   "main": "index.js",
   "scripts": {
-    "start": "node-dev server | bunyan",
-		"init": "make init_mysql",
+    "start": "node-dev server",
+    "init": "make init_mysql",
     "test": "DISABLE_LOG=1 mocha test/index.js --exit --timeout 5000 $MOCHA_OPTIONS",
-		"test-leds": "node scripts/leds",
+    "test-leds": "node scripts/leds",
     "lint": "eslint lib/** test/**"
   },
   "dependencies": {
+    "boom": "^7.2.0",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
     "koa-compress": "^2.0.0",

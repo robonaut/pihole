@@ -31,6 +31,7 @@ restart:
 	--name=client \
 	--restart unless-stopped \
 	-e NODE_ENV=production \
+	-e PIHOLE_MATRIX_IP=172.17.0.1
 	-p 3000:3000 \
 	-v /dev/snd:/dev/snd --privileged \
 	-v /tmp:/tmp --privileged \
@@ -41,6 +42,12 @@ provision:
 	make aws-push
 	make aws-deploy
 	make restart
+
+update-lib:
+	ssh pi@hole.local 'rm -r /tmp/lib'
+	scp -r ./lib pi@hole.local:/tmp/lib
+	ssh pi@hole.local 'docker cp /tmp/lib client:/app/'
+	ssh pi@hole.local 'docker restart client'
 
 getrecord:
 	ssh pi@hole.local 'docker cp client:/app/test.wav .'

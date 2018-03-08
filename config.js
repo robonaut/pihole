@@ -9,6 +9,7 @@ const defaultConfig = {
 	"apiPortInternal": 3000,
 	"apiPortExternal": 3000,
 	"apiPath": "",
+	"matrixIp": "192.168.0.183",
 };
 
 const config = {};
