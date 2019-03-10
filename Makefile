@@ -31,10 +31,7 @@ restart:
 	--name=client \
 	--restart unless-stopped \
 	-e NODE_ENV=production \
-	-e PIHOLE_MATRIX_IP=172.17.0.1 \
 	-p 3000:3000 \
-	-v /dev/snd:/dev/snd --privileged \
-	-v /tmp:/tmp --privileged \
 	-d $(REPO)/$(PROJECT):latest'
 
 provision:

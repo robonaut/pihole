@@ -12,21 +12,20 @@
     "lint": "eslint lib/** test/**"
   },
   "dependencies": {
-    "boom": "^7.2.0",
-    "koa": "^2.5.0",
-    "koa-bodyparser": "^4.2.0",
-    "koa-compress": "^2.0.0",
-    "koa-response-time": "^2.0.0",
+    "arpping": "^0.1.6",
+    "arpscan": "^1.0.2",
+    "boom": "^7.3.0",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-compress": "^3.0.0",
+    "koa-response-time": "^2.1.0",
     "koa-router": "^7.4.0",
-    "matrix-protos": "0.0.21",
-    "nan": "^2.9.2",
-    "snowboy": "^1.2.0",
-    "zmq": "2.15.3"
+    "local-devices": "^2.0.0"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "mocha": "^5.0.1",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
     "node-dev": "^3.1.3",
-    "supertest": "^3.0.0"
+    "supertest": "^3.4.2"
   }
 }

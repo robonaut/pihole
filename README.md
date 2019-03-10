@@ -2,39 +2,30 @@
 
 ### Prerequisites
 	- Raspberry Pi 3 B
-	- Matrix Voice microphone array
+	- Internet connection 😎
 
 ### Install Raspbian strech
-	- Flash Raspian stretch onto SD card using Etcher
-	- Enable SSH (docs)
-	- Change pass
-	- (optional) Install public key authorized keys
+	- Flash Raspian stretch lite onto SD card using Etcher
+	- Enable ssh `$ touch /Volumes/boot/ssh`
+	- Boot Pi with network access
+  - ssh to Pi using default password (raspberry) `$ ssh pi@raspberrypi.local`
+  - Copy ssh key (optional) `ssh-copy-id pi@raspberrypi.local`
 
 ### Install Docker
 ```sh
 $ ssh pi@hole.local
-$ curl -sSL https://get.docker.com | sh
+$ sudo curl -sSL https://get.docker.com | sh
+$ sudo usermod -aG docker pi
 ```
 
-### Instal Matrix Voice driver on Raspbian stretch
-
-```sh
-$ ssh pi@hole.local
-$ curl https://apt.matrix.one/doc/apt-key.gpg | sudo apt-key add -
-$ echo "deb https://apt.matrix.one/raspbian $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/matrixlabs.list
-$ sudo apt-get update
-$ sudo apt-get upgrade
-$ sudo apt-get install matrixio-malos
-$ sudo reboot
+#Install Home Assistant and dependencies
+https://nealde.github.io/blog/2017/10/26/how-to-install-hassio-and-pihole/
+```
+$ sudo apt install jq apparmor-utils socat
+$ sudo curl -sL https://raw.githubusercontent.com/home-assistant/hassio-build/master/install/hassio_install | sudo bash -s -- -m raspberrypi3
 ```
 
 ### Provision docker container on raspberry with linked sound device
 ```sh
 $ make provision
 ```
-
-### Make record
-```sh
-$ make record
-```
-
