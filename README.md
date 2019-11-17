@@ -22,7 +22,7 @@ $ sudo usermod -aG docker pi
 https://nealde.github.io/blog/2017/10/26/how-to-install-hassio-and-pihole/
 ```
 $ sudo apt install jq apparmor-utils socat
-$ sudo curl -sL https://raw.githubusercontent.com/home-assistant/hassio-build/master/install/hassio_install | sudo bash -s -- -m raspberrypi3
+$ sudo curl -sL https://raw.githubusercontent.com/home-assistant/hassio-installer/master/hassio_install.sh | sudo bash -s -- -m raspberrypi3
 ```
 
 ### Provision docker container on raspberry with linked sound device
