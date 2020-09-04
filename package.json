@@ -20,7 +20,7 @@
     "koa-compress": "^3.0.0",
     "koa-response-time": "^2.1.0",
     "koa-router": "^7.4.0",
-    "local-devices": "^2.0.0"
+    "local-devices": "^3.0.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
